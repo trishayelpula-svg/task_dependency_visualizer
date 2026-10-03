@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task Dependency Visualizer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero"><div class="w"><h1>🔗 Task Dependency Visualizer</h1>
+<p>DFS + Topological Sort: find a valid schedule, detect every cycle, analyze dependencies and compute the project duration.</p></div></header>
+<div class="w">
+<div class="g2" style="margin-top:14px">
+<div class="card">
+<div class="row tabs" style="margin-bottom:6px"><button id="tD" class="on">DFS Topological Sort</button><button id="tK">Kahn's Algorithm</button><button id="bV">Valid example</button><button id="bC">Cycle example</button></div>
+<div class="row" style="margin-bottom:4px"><button class="p" id="play">▶ Run</button><button id="back">◂ Back</button><button id="step">Step ▸</button><button id="reset">Reset</button><label>Speed <input id="spd" type="range" min="1" max="100" value="55"></label></div>
+<div class="lg"><span><i style="background:var(--card)"></i>unvisited</span><span><i style="background:var(--amb)"></i>in progress</span><span><i style="background:var(--blu)"></i>ready</span><span><i style="background:var(--grn)"></i>done</span><span><i style="background:var(--red)"></i>cycle</span><span><i style="border:3px solid var(--tea)"></i>critical task</span></div>
+<svg id="svg" viewBox="0 0 620 340"><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#9a9a93"/></marker></defs><g id="eg"></g><g id="ng"></g></svg>
+<div id="msg"></div></div>
+<div class="card"><b id="pt">Pseudocode</b><pre id="code"></pre><div class="sb" id="sb"></div></div></div>
+
+<div class="card"><b>Tasks, dependencies and durations</b>
+<p class="hint"><code>A -&gt; B</code> = A must finish before B (chains like <code>A -&gt; B -&gt; C</code> work). <code>A: 3</code> sets A's duration in days (default 1). A lone name adds a task.</p>
+<textarea id="in" spellcheck="false"></textarea></div>
+
+<div class="card"><div class="stats">
+<div class="st"><small>Tasks / Dependencies</small><b id="s1">–</b></div><div class="st"><small>Edge checks</small><b id="s2">0</b></div>
+<div class="st"><small>Step</small><b id="s3">0/0</b></div><div class="st"><small>Run time</small><b id="s4">–</b></div>
+<div class="st"><small>Project duration</small><b id="s5">–</b></div></div>
+<p style="margin:10px 0 2px"><b>Result: </b><span id="res"></span></p>
+<p style="margin:2px 0"><b>DFS visit order: </b><span id="vis"></span></p><div id="ord"></div></div>
+
+<div class="g2">
+<div class="card"><b>Schedule &amp; critical path</b> <span class="hint">(objective: minimum total project time)</span><div id="sch" class="tw"></div></div>
+<div class="card"><b>Structure analysis (DFS)</b><div id="str"></div>
+<hr style="border:0;border-top:1px solid var(--bd)"><b>Dependency analysis</b> <span class="hint">click a task in the graph</span><div id="dep">Click any task in the graph.</div></div></div>
+
+<div class="card"><div class="row" style="justify-content:space-between"><b>Compare the two algorithms on this graph</b><button class="p" id="cmp">Run comparison</button></div><div class="tw"><table id="tbl"></table></div></div>
+<p class="hint" style="margin-bottom:36px">Both algorithms run in O(V + E) time and O(V) space. DFS pinpoints each cycle exactly; Kahn's lists every task blocked by a cycle.</p>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
